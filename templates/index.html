@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}
+  Bosh safiha
+{% endblock title %}
+
+{% block content %}
+    <div class="container mt-3">
+        <div style="display: flex; justify-content: space-around; align-items: center; flex-direction: row; flex-wrap: wrap;">
+        {% for team in teams %}
+        
+            <div class="btn btn-block btn-default btn-lg">
+                <div class="card-body">
+                  <h5 class="card-title">{{team.name}}</h5>
+                  <a href="{% url 'detail' team.id %}">davomatni tekshirish</a>
+                </div>
+            </div>
+        
+        {% endfor %}    
+        </div>
+    </div>
+  
+{% endblock content %}

@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+  <style>
+      @media only screen and (max-width: 500px) {
+            .afes{
+                overflow:scroll;
+            }
+      }
+  </style>
+  <!-- TO DO List -->
+  <div class="box box-primary">
+    <div class="box-header">
+      <i class="ion ion-clipboard"></i>
+      <h3 class="box-title">Malumotlar</h3>
+      <div class="box-tools pull-right">
+
+      </div>
+    </div><!-- /.box-header -->
+    <div class="box-body afes">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Sinf</th>
+            <th scope="col">Sinf Rahbar</th>
+            <th scope="col">ko`rish</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for sinf in sinf %}
+          <tr>
+            <th scope="row">{{ sinf.id }}</th>
+            <td>{{ sinf.team }}</td>
+            <td>{{ sinf.team.rahbar }}</td>
+            <td><a href="{% url 'detail' sinf.team.id %}">Ko`rish</a></td>
+          </tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div><!-- /.box-body -->
+
+  </div><!-- /.box -->
+{% endblock content %}

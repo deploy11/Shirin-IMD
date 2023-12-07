@@ -1,0 +1,192 @@
+{% extends "base.html" %}
+{% block content %}
+        <section class="content">
+          <!-- Small boxes (Stat box) -->
+          <div class="row">
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-aqua">
+                <div class="inner">
+                  <h3>{{ do }}</h3>
+                  <p>Davomat olingan sinflar soni (kunlik)</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-file-text"></i>
+                </div>
+                <a href="{% url "do" %}" class="small-box-footer"><i class="fa fa-arrow-circle-right"></i></a>
+              </div>
+            </div><!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-green">
+                <div class="inner">
+                  <h3>{{ dq }}</h3>
+                  <p>Dars qoldirmagan o`quvchilar (yilik)</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-check-circle"></i>
+                </div>
+                <a href="{% url 'dq' %}" class="small-box-footer"><i class="fa fa-arrow-circle-right"></i></a>
+              </div>
+            </div><!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-yellow">
+                <div class="inner">
+                  <h3>{{ ds }}</h3>
+                  <p>Sababli dars qoldirgan o`quchilar soni (yilik)</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-clock-o"></i>
+                </div>
+                <a href="{% url 'ds' %}" class="small-box-footer"><i class="fa fa-arrow-circle-right"></i></a>
+              </div>
+            </div><!-- ./col -->
+            <div class="col-lg-3 col-xs-6">
+              <!-- small box -->
+              <div class="small-box bg-red">
+                <div class="inner">
+                  <h3>{{ dy }}</h3>
+                  <p>Sababsiz dars qoldirgan o`quchilar soni (yilik)</p>
+                </div>
+                <div class="icon">
+                  <i class="fa fa-ban"></i>
+                </div>
+                <a href="{% url 'dy' %}" class="small-box-footer"><i class="fa fa-arrow-circle-right"></i></a>
+              </div>
+            </div><!-- ./col -->
+
+          </div><!-- /.row -->
+          
+          <style>
+            .lerow div{
+                width: 1000px;
+                float: left;
+            }
+              @media only screen and (max-width: 500px) {
+                  .lerow{
+                      flex-direction: column;
+                  }
+                  .lerow div{
+                      width: 317px;
+                      float:none;
+                  }
+              }
+          </style>
+          <div class="lerow" style="display:flex ;">
+            <div>
+              <canvas id="myChart"></canvas>
+            </div>
+            <div>
+              <canvas id="myChart2"></canvas>
+            </div>
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+          <script>
+            const ctx = document.getElementById('myChart');
+            const ctx2 = document.getElementById('myChart2');
+            new Chart(ctx, {
+              type: 'line',
+
+              data: {
+                labels: ['Davomat olingan sinflar soni', 'Dars qoldirmagan o`quvchilar', 'Sababli dars qoldirgan o`quchilar soni', 'Sababsiz dars qoldirgan o`quchilar soni',],
+                datasets: [{
+                  label: 'chiziqli Diagramma',
+                  data: [{{ do }},{{ dq }},{{ ds }},{{ dy }}],
+                  borderWidth: 0.7,
+                  backgroundColor: [
+                    'rgba(255, 99, 132, 0.2)',
+                    'rgba(255, 159, 64, 0.2)',
+                    'rgba(255, 205, 86, 0.2)',
+                    'rgba(75, 192, 192, 0.2)',
+                    'rgba(54, 162, 235, 0.2)',
+                    'rgba(153, 102, 255, 0.2)',
+                    'rgba(201, 203, 207, 0.2)'
+                    ],
+                  borderColor: [
+                        'rgb(255, 99, 132)',
+                        'rgb(255, 159, 64)',
+                        'rgb(255, 205, 86)',
+                        'rgb(75, 192, 192)',
+                        'rgb(54, 162, 235)',
+                        'rgb(153, 102, 255)',
+                        'rgb(201, 203, 207)'
+                    ],
+                }]
+              },
+              options: {
+                scales: {
+                  y: {
+                    beginAtZero: true
+                  }
+                }
+              }
+            });
+            new Chart(ctx2, {
+                type: 'bar',
+                data: {
+                  labels: ['Davomat olingan sinflar soni', 'Dars qoldirmagan o`quvchilar', 'Sababli dars qoldirgan o`quchilar soni', 'Sababsiz dars qoldirgan o`quchilar soni',],
+                    datasets: [{
+                        label: 'barli diagramma',
+                        data: [{{ do }},{{ dq }},{{ ds }},{{ dy }}],
+                        borderWidth: 1
+
+                    }]
+
+
+            },
+                options: {
+                scales: {
+                    y: {
+                    beginAtZero: true
+                }
+            }
+            }
+            });
+          </script>
+          </div>
+
+
+
+          <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+          
+          
+                
+        <script>
+          // <![CDATA[  <-- For SVG support
+          if ('WebSocket' in window) {
+            (function () {
+              function refreshCSS() {
+                var sheets = [].slice.call(document.getElementsByTagName("link"));
+                var head = document.getElementsByTagName("head")[0];
+                for (var i = 0; i < sheets.length; ++i) {
+                  var elem = sheets[i];
+                  var parent = elem.parentElement || head;
+                  parent.removeChild(elem);
+                  var rel = elem.rel;
+                  if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+                    var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+                    elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+                  }
+                  parent.appendChild(elem);
+                }
+              }
+              var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+              var address = protocol + window.location.host + window.location.pathname + '/ws';
+              var socket = new WebSocket(address);
+              socket.onmessage = function (msg) {
+                if (msg.data == 'reload') window.location.reload();
+                else if (msg.data == 'refreshcss') refreshCSS();
+              };
+              if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+                console.log('Live reload enabled.');
+                sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+              }
+            })();
+          }
+          else {
+            console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+          }
+          // ]]>
+        </script>
+{% endblock content %}
